@@ -259,6 +259,7 @@ jobs:
         working-directory: config_viz/frontend
         run: |
           npx --yes @cyclonedx/cyclonedx-npm \
+            --package-lock-only \
             --output-format JSON \
             --output-file sbom.json \
             --mc-type application
