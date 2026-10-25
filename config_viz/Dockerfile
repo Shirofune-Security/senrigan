@@ -24,7 +24,10 @@ WORKDIR /app/frontend
 COPY frontend/package.json frontend/package-lock.json frontend/.npmrc ./
 RUN npm ci
 
+# --package-lock-only mirrors CI: `npm ls` on the installed tree rejects the
+# platform-specific optional binaries npm ci picked for this architecture.
 RUN npx --yes @cyclonedx/cyclonedx-npm \
+      --package-lock-only \
       --output-format JSON \
       --output-file /tmp/sbom-frontend.json \
       --mc-type application 2>/dev/null \
